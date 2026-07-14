@@ -1,0 +1,30 @@
+name: "Demo CodeQL Configuration"
+
+# Specify which languages will be analyzed by CodeQL
+# https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning
+queries:
+  - uses: security-and-quality  # Use both security and quality queries for comprehensive coverage
+
+# Specify query suites or individual queries
+query-filters:
+  # Include critical and high severity alerts
+  - include:
+      severity: [critical, high]
+  # You can also filter by specific tags if needed
+  - include:
+      tags contain: security
+
+# Path filters to specify which directories to scan and which to exclude
+paths:
+  - src  # Include all files in src directory
+paths-ignore:
+  - '**/tests/**'  # Exclude test files
+  - '**/node_modules/**'  # Exclude node_modules if you have any
+  - '**/*.test.py'  # Exclude test files with .test.py extension
+
+# Configuration for specific languages
+python:
+  # Python version to target for analysis
+  python-version: 3.9
+  # Include additional libraries for better analysis
+  additionalPackages: requirements.txt
